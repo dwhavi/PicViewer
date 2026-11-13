@@ -45,6 +45,12 @@ AddressSanitizer/UndefinedBehaviorSanitizer can be enabled with CMAKE_C_FLAGS, C
 
 RAW fixture source URLs, camera modes and SHA-256 values are in tests/raw-sample-sources.json. Those selected entries were labeled CC0. No RAW fixture image binaries are bundled in the repository or APK. Fetch only the selected entries and verify hashes before use.
 
+## Device-folder provider fixture
+
+`LocalSourceTest` supplies a synthetic ContentProvider and non-personal photo files under Android 14 Robolectric. It covers recursive Unicode paths, read-only file opens, size/version checks, byte limits with unknown size, partial/loading/error listings, duplicate names, additions/deletions, stale document IDs, explicit read-only tree picker intent, persistable grant result handling, local config persistence without overwriting PC fields, activity restart, playback, folder selection and access revocation. Unknown metadata receives a new cache version each scan.
+
+This exercises the application and Android simulation, not a real OEM DocumentsUI picker, removable card or reboot grant persistence. Test those on the target device before normal use. No READ_MEDIA_IMAGES, WRITE_EXTERNAL_STORAGE or MANAGE_EXTERNAL_STORAGE permission is requested.
+
 ## Actual Android runtime
 
 The separate Android JNI probe is documented in tests/android_probe/README.md. It calls the APK's native library through Android's runtime and Bitmap API. It does not test the entire activity, SMB workflow or ARM ABI. The larger NEF's complete RAW render is not counted as a bounded emulator smoke-test pass.

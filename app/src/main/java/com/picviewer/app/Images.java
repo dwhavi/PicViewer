@@ -5,14 +5,14 @@ import java.io.*;import java.util.*;
 
 final class Images implements AutoCloseable {
  static final class TransportFailure extends IOException {TransportFailure(Throwable cause){super(cause);}}
- static final long MAX_FILE=256L*1024*1024; final Context context;final java.io.File dir;final Config config;SmbSource source;
+ static final long MAX_FILE=256L*1024*1024; final Context context;final java.io.File dir;final Config config;PhotoSource source;
  long maxCache=256L*1024*1024;volatile boolean online=true;boolean demo=false;volatile boolean closed=false;volatile long cacheEpoch=0;
  Images(Context c,Config config){context=c;this.config=config;dir=new java.io.File(c.getCacheDir(),"frames");dir.mkdirs();}
  synchronized java.io.File file(Photo p)throws Exception{
   if(closed)throw new IOException("CLOSED");long epoch=cacheEpoch;String key=p.key(config.source());java.io.File f=new java.io.File(dir,key+".img");if(f.exists()&&f.length()>0){f.setLastModified(System.currentTimeMillis());return f;}if(!online&&!demo)throw new IOException("OFFLINE_CACHE_MISS");if(p.size>MAX_FILE)throw new IOException("FILE_LIMIT");
   java.io.File tmp=new java.io.File(dir,key+".part");try{
    if(demo){try(InputStream in=context.getAssets().open("demo/"+p.name());OutputStream out=new FileOutputStream(tmp)){byte[] b=new byte[65536];int n;while((n=in.read(b))!=-1)out.write(b,0,n);}}
-   else {if(source==null)source=new SmbSource(config);try{source.fetch(p.path,tmp,MAX_FILE,p.size,p.modified);}catch(Exception e){throw new TransportFailure(e);}}
+   else {if(source==null)source=config.local()?new LocalSource(context,config.localTree):new SmbSource(config);try{source.fetch(p.path,tmp,MAX_FILE,p.size,p.modified);}catch(Exception e){String message=String.valueOf(e);if(message.contains("FILE_CHANGED")||message.contains("FILE_LIMIT"))throw e;throw new TransportFailure(e);}}
    if(closed||epoch!=cacheEpoch)throw new IOException("CANCELLED");if(tmp.length()==0)throw new IOException("EMPTY_FILE");if(!tmp.renameTo(f))throw new IOException("CACHE_WRITE");trim(f);return f;
   }catch(Exception e){tmp.delete();if(source!=null){source.close();source=null;}throw e;}
  }

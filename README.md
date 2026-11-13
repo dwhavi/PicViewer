@@ -1,11 +1,12 @@
 # PicViewer
 
-A quiet Android photo frame for photos on an authenticated SMB2/3 share.
+A quiet Android photo frame for photos in a device folder or on an authenticated SMB2/3 share.
 
 **Pre-release.** The app is being tested. It has not been validated on a physical tablet or a real Windows share yet. Installation and the welcome screen have been checked on an Android 9 x86 software emulator. Do not weaken your server security settings to make it connect.
 
 ## What it does
 
+- Read-only device-folder access through the Android system folder picker (Storage Access Framework). No all-files or broad media permission.
 - Read-only SMB2/3 access with signing required and a named account.
 - Recursive photo index, multiple folder checkboxes, select all, and optional subfolder inclusion.
 - Sequential natural filename order or shuffle without repetition within a cycle.
@@ -27,6 +28,18 @@ Requirements: JDK 17, Android SDK 35 / build-tools 35.0.0, NDK 27.2.12479018, CM
 ```
 
 The debug APK is `app/build/outputs/apk/debug/app-debug.apk`. It is a development build, not a Play Store release. Never add a signing key or real connection details to the repository.
+
+## Device folders (0.2.0)
+
+Choose **기기 폴더 선택** on the welcome screen or in Settings. In Android's picker, choose a photo folder and allow access. The app requests persistent read permission only. It does not request write access or change original files. Internal storage and SD-card folders work when the device's document provider exposes them. The picker is asked to show local locations; provider behavior still depends on the installed Android ROM.
+
+One source is active at a time. Device folders and SMB are not mixed into one list. Changing location rebuilds the index, folder choices, playback queue and cache, but keeps saved PC credentials. Use **저장한 PC 공유로 전환** in Settings to return, or **PC 연결 설정** to edit them. A local source restores on app restart while its grant remains valid.
+
+Subfolder checkboxes, select all, sequential/shuffled playback and manual/periodic rescans work on the chosen tree. Android 11+ can disallow choosing storage roots, the whole Download folder, and Android/data or Android/obb. Choose Pictures, DCIM or a permitted subfolder instead; this app does not bypass Android restrictions. A disconnected SD card or revoked grant requires checking/reselecting the folder. If the provider omits version metadata, files are fetched again after each scan rather than trusting an old cached version. Providers can still change a file during a read without useful metadata, so exact snapshot guarantees are not possible.
+
+Android platform guidance: https://developer.android.com/training/data-storage/shared/documents-files
+
+The local-source checks use a fixture DocumentsProvider under Android 14 Robolectric, including reads, restart, grant result handling, revocation, add/delete scans and playback. They are not physical-tablet or real picker/SD-card tests.
 
 ## Connect
 
