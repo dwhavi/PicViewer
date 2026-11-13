@@ -25,3 +25,5 @@ with tempfile.TemporaryDirectory() as work:
   assert actual.size==expected.size,(orientation,actual.size,expected.size)
   assert list(actual.getdata())==list(expected.getdata()),orientation
   print('PASS orientation',orientation)
+
+"""Additional alpha and boundary cases are validated separately in the development report."""

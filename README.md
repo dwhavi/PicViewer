@@ -42,4 +42,6 @@ The demo button works without a server and is clearly labeled. It contains a lic
 - Android 14 Robolectric tests for screens, image decoding, SQLite persistence and cache pruning. Captures from these tests are simulated Android renders, not physical-device screenshots.
 - Optional live SMB fixture tests use environment variables `PICVIEWER_TEST_PORT`, `PICVIEWER_TEST_USER`, `PICVIEWER_TEST_PASSWORD`, `PICVIEWER_TEST_ROOT`. They are skipped when the fixture is absent. Only ephemeral test accounts belong there.
 
+- Portable native decoder checks: `cmake -S app/src/main/cpp -B build-host && cmake --build build-host -j2`, then `python tests/native_codec_test.py build-host/piccodec` (Pillow required). These exercise the same decode functions on the host; they do not prove Android JNI compatibility or tablet performance.
+
 See `THIRD_PARTY_NOTICES.md` for component and photo licenses. The bundled dependency source is unchanged except for any patches documented there. Test data and build output are not a claim of compatibility with every RAW camera.
