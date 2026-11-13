@@ -6,7 +6,7 @@ No general public license has been selected for original PicViewer application c
 
 ## Bundled native source
 
-- LibRaw 0.21.4, https://github.com/LibRaw/LibRaw (tag 0.21.4). Used under CDDL 1.0, selected from the upstream LGPL 2.1 / CDDL 1.0 dual license. The complete source and notices are in `third_party/LibRaw`. No changes to upstream source. The app's adapter is `app/src/main/cpp/piccodec.cpp`. Optional RawSpeed, DNG SDK, Jasper, LCMS and OpenMP components are not enabled. Support is limited to the compiled version and features.
+- LibRaw 0.22.3, https://github.com/LibRaw/LibRaw (tag 0.22.3). Used under CDDL 1.0, selected from the upstream LGPL 2.1 / CDDL 1.0 dual license. The complete source and notices are in `third_party/LibRaw`. Two decoder fixes are documented in `third_party/LibRaw/PICVIEWER_PATCHES.md`. The app's adapter is `app/src/main/cpp/piccodec.cpp`. Optional RawSpeed, DNG SDK, Jasper, LCMS and OpenMP components are not enabled. Support is limited to the compiled version and features.
 - LibTIFF 4.7.2, https://download.osgeo.org/libtiff/tiff-4.7.2.tar.gz . Full source and permission notice in `third_party/libtiff/LICENSE.md`. No upstream changes. JPEG-compressed TIFF and optional ZSTD/WebP/LZMA/JBIG/LERC codecs are disabled in the present native build; this does not affect the separate Android JPEG decoder.
 - libjpeg-turbo 3.1.0, https://github.com/libjpeg-turbo/libjpeg-turbo . Full source, README.ijg and LICENSE.md are in `third_party/libjpeg-turbo`. No upstream changes. Static JPEG8-compatible build; SIMD is disabled in this initial portable build. The external build wrapper is original app build configuration.
 
