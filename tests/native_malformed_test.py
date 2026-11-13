@@ -12,10 +12,10 @@ with tempfile.TemporaryDirectory() as d:
   elif i%4==1:payload[:8]=b'MM\0*'+r.randbytes(4)
   elif i%4==2:payload[:12]=b'II*\0\x08\0\0\0\x01\0\x00\x01'
   src=root/'sample.bin';src.write_bytes(payload)
-  for kind in (2,0):
+  for kind in (2,0,1):
    try:
     p=subprocess.run([codec,str(src),str(kind),str(root/'out.ppm')],capture_output=True,timeout=2,preexec_fn=limits)
     if p.returncode not in (0,3):results.append(dict(case=i,kind=kind,returncode=p.returncode,error=p.stderr[:300].decode(errors='replace')))
    except subprocess.TimeoutExpired:results.append(dict(case=i,kind=kind,error='timeout'))
-print(json.dumps(dict(calls=600,unexpected=results),indent=2))
+print(json.dumps(dict(calls=900,unexpected=results),indent=2))
 assert not results, results
