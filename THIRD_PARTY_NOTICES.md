@@ -12,7 +12,7 @@ No general public license has been selected for original PicViewer application c
 
 ## Maven dependencies
 
-SMBJ 0.13.0 is Apache 2.0. AndroidX ExifInterface 1.3.7 is Apache 2.0. SLF4J is MIT. SMBJ also brings Bouncy Castle (MIT-style license), ASN.1 and event-bus dependencies. The APK includes upstream Maven license resources wherever packaging allows them. Full resolved dependency versions can be inspected with `./gradlew :app:dependencies --configuration debugRuntimeClasspath`. Redistribution must preserve applicable notices. Test-only JUnit, Robolectric and Android test libraries are not app functionality.
+SMBJ 0.13.0 is Apache 2.0. AndroidX ExifInterface 1.3.7 is Apache 2.0. SLF4J is MIT. SMBJ also brings Bouncy Castle (MIT-style license), ASN.1 and event-bus dependencies. The APK includes license texts under assets/licenses, accessible from Settings. Full resolved dependency versions can be inspected with `./gradlew :app:dependencies --configuration debugRuntimeClasspath`. Redistribution must preserve applicable notices. Test-only JUnit, Robolectric and Android test libraries are not app functionality.
 
 ## Demo photos
 
