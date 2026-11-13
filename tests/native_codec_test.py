@@ -26,4 +26,10 @@ with tempfile.TemporaryDirectory() as work:
   assert list(actual.getdata())==list(expected.getdata()),orientation
   print('PASS orientation',orientation)
 
-"""Additional alpha and boundary cases are validated separately in the development report."""
+# A separate short-lived fixture verifies premultiplied alpha output on black.
+with tempfile.TemporaryDirectory() as work:
+ for mode,colour,expected in [('RGBA',(100,60,20,128),(50,30,10)),('LA',(100,128),(50,50,50))]:
+  src=Path(work)/(mode+'.tif');out=src.with_suffix('.ppm');Image.new(mode,(48,32),colour).save(src)
+  subprocess.run([codec,str(src),'2',str(out)],check=True,capture_output=True)
+  assert Image.open(out).getpixel((0,0))==expected
+  print('PASS alpha',mode)

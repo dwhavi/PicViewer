@@ -1,0 +1,82 @@
+[
+  {
+    "make": "Canon",
+    "model": "EOS 5D Mark III",
+    "mode": "14bit 14bit (2.3471882640587)",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/2204/nice/Canon - EOS 5D Mark III - 14bit 14bit (2.3471882640587).dng",
+    "sha256": "1d77dcc6cdb839b10c1948f0b4471984ab48cf15e973fb77520584cee72b603e"
+  },
+  {
+    "make": "Nikon",
+    "model": "Nikon COOLSCAN IV ED",
+    "mode": "uncompressed (4:3)",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/4282/nice/Nikon - Nikon COOLSCAN IV ED - uncompressed (4:3).nef",
+    "sha256": "268d9a98920a9f3ea3ebf6a2b9ff68b956df74ac0e46b980bee69e7ef3ebc172"
+  },
+  {
+    "make": "Sony",
+    "model": "ILCE-7S",
+    "mode": "14bit 14bit compressed (3:2)",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/1582/nice/Sony - ILCE-7S - 14bit 14bit compressed (3:2).ARW",
+    "sha256": "a35ebb2fbec929daa5beb20d1ce5c15a8aac7b1a7a231455387f3df8a7442e07"
+  },
+  {
+    "make": "Fujifilm",
+    "model": "FinePix S5000",
+    "mode": "4:3",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/2726/nice/Fujifilm - FinePix S5000 - 4:3.RAF",
+    "sha256": "dabd5e74521a6980156be9fd4b88d0c37b0fe4d0e0e6f5c12db8cffff1b76297"
+  },
+  {
+    "make": "Panasonic",
+    "model": "DMC-LX7",
+    "mode": "1:1",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/7008/nice/Panasonic - DMC-LX7 - 1:1.RW2",
+    "sha256": "d142a23aca836053ed53e9ce3cb3ed2d434541d734d71a94a6eefadcd08bd31b"
+  },
+  {
+    "make": "Pentax",
+    "model": "K10D",
+    "mode": "12bit 12bit compressed (3:2)",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/2239/nice/Pentax - K10D - 12bit 12bit compressed (3:2).PEF",
+    "sha256": "e35ae4154a468be3154f5f462e884ba5941f010d3e8f23d347fbec14809f44d3"
+  },
+  {
+    "make": "Nikon",
+    "model": "D7000",
+    "mode": "14bit 14bit compressed (Lossless) (3:2)",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/958/nice/Nikon - D7000 - 14bit 14bit compressed (Lossless) (3:2).NEF",
+    "sha256": "639945753240005d80488c0462c01e73a7ab82c96d3d1cdb6661f02e1b3c1319"
+  },
+  {
+    "make": "Canon",
+    "model": "EOS 40D",
+    "mode": "RAW (3:2)",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/2101/nice/Canon - EOS 40D - RAW (3:2).CR2",
+    "sha256": "775c806358fedddec7622113a5e399a3330bd5a65e35e37ae1108d8bf58067be"
+  },
+  {
+    "make": "Canon",
+    "model": "EOS R",
+    "mode": "3:2",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/4515/nice/Canon - EOS R - 3:2.CR3",
+    "sha256": "89bd55532b0cceb5efa360e97827ba35c2076bce0de4675f3a4413a883dac880"
+  },
+  {
+    "make": "Olympus",
+    "model": "E-M5",
+    "mode": "16bit (4:3)",
+    "license": "CC0-1.0",
+    "url": "https://raw.pixls.us/getfile.php/1084/nice/Olympus - E-M5 - 16bit (4:3).ORF",
+    "sha256": "b2221977cbc6eba0d3b363351072092e5647eaa0d02a5d8432b5d985b29f669f"
+  }
+]

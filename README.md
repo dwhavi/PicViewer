@@ -2,7 +2,7 @@
 
 A quiet Android photo frame for photos on an authenticated SMB2/3 share.
 
-**Pre-release.** The app is being tested. It has not been validated on a physical tablet or a real Windows share yet. Do not weaken your server security settings to make it connect.
+**Pre-release.** The app is being tested. It has not been validated on a physical tablet or a real Windows share yet. Installation and the welcome screen have been checked on an Android 9 x86 software emulator. Do not weaken your server security settings to make it connect.
 
 ## What it does
 
@@ -45,3 +45,5 @@ The demo button works without a server and is clearly labeled. It contains a lic
 - Portable native decoder checks: `cmake -S app/src/main/cpp -B build-host && cmake --build build-host -j2`, then `python tests/native_codec_test.py build-host/piccodec` (Pillow required). These exercise the same decode functions on the host; they do not prove Android JNI compatibility or tablet performance.
 
 See `THIRD_PARTY_NOTICES.md` for component and photo licenses. The bundled dependency source is unchanged except for any patches documented there. Test data and build output are not a claim of compatibility with every RAW camera.
+
+`tests/android_probe/NativeCodec.java` is a small Android-runtime JNI probe, not an app feature. It was run with the APK's x86 library against a generated LZW TIFF, a CC0 Nikon D7000 NEF preview, a small Canon-derived DNG render and a broken TIFF. It is not a substitute for arm64/physical-device tests. Android instrumentation test source is also included but is not counted as executed unless its runner completed.
