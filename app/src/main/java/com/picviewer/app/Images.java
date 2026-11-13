@@ -1,5 +1,5 @@
 package com.picviewer.app;
-import android.content.*;import android.graphics.*;import android.media.ExifInterface;
+import android.content.*;import android.graphics.*;
 import com.picviewer.core.Photo;
 import java.io.*;import java.util.*;
 

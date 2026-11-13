@@ -19,7 +19,7 @@ This is not a universal decoder guarantee. Unsupported encodings, camera variant
 
 ## Build
 
-Requirements: JDK 17, Android SDK 35 / build-tools 35.0.0, NDK 27.2.12479018, CMake 3.22.1. Android 8.0+ (API 26) is the current build minimum, with Android 14 the primary validation target. The package contains arm64-v8a, armeabi-v7a and x86_64 native libraries.
+Requirements: JDK 17, Android SDK 35 / build-tools 35.0.0, NDK 27.2.12479018, CMake 3.22.1. Android 8.0+ (API 26) is the current build minimum, with Android 14 the primary validation target. The package contains arm64-v8a, armeabi-v7a x86_64 and x86 native libraries.
 
 ```sh
 # Set ANDROID_HOME or sdk.dir in a local.properties file.
