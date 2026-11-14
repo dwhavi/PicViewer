@@ -17,11 +17,14 @@ final class SmbSource implements PhotoSource {
  SmbSource(Config c){config=c;}
  void connect()throws Exception{
   if(disk!=null&&disk.isConnected())return;
+  authenticate();disk=(DiskShare)session.connectShare(config.share);
+ }
+ void authenticate()throws Exception{
+  if(session!=null&&connection!=null&&connection.isConnected())return;
   close();
   try(Socket s=new Socket()){s.connect(new InetSocketAddress(config.host,config.port),4500);}
   SmbConfig options=SmbConfig.builder().withTimeout(8,TimeUnit.SECONDS).withSoTimeout(8000).withReadBufferSize(256*1024).withWriteBufferSize(64*1024).withSigningRequired(true).withDfsEnabled(false).build();
   client=new SMBClient(options);connection=client.connect(config.host,config.port);char[] pass=config.password.toCharArray();try{session=connection.authenticate(new AuthenticationContext(config.user,pass,config.domain));}finally{Arrays.fill(pass,'\0');}
-  disk=(DiskShare)session.connectShare(config.share);
  }
  public List<Scanner.Entry> list(String path)throws Exception{try{connect();List<Scanner.Entry> out=new ArrayList<>();for(FileIdBothDirectoryInformation f:disk.list(path.replace('/','\\'))){long a=f.getFileAttributes();out.add(new Scanner.Entry(f.getFileName(),(a&0x10)!=0,(a&0x400)!=0,f.getEndOfFile(),f.getLastWriteTime().toEpochMillis()));}return out;}catch(Exception e){String k=kind(e);if(k.equals("AUTH")||k.equals("OFFLINE"))throw new Scanner.Unavailable(e);throw e;}}
  void fetch(String path,File target,long max)throws Exception{fetch(path,target,max,-1,-1);}

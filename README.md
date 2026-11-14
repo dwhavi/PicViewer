@@ -29,6 +29,18 @@ Requirements: JDK 17, Android SDK 35 / build-tools 35.0.0, NDK 27.2.12479018, CM
 
 The debug APK is `app/build/outputs/apk/debug/app-debug.apk`. It is a development build, not a Play Store release. Never add a signing key or real connection details to the repository.
 
+## PC discovery and share picker (0.3.0)
+
+Open **PC 공유 연결**. Type a PC IP/name, or use **같은 Wi-Fi에서 PC 찾기**. Discovery sends two WS-Discovery probes during an approximately 8-second foreground search, limited to the active IPv4 Wi-Fi subnet. It does not scan every IP, fetch metadata URLs, or send credentials to discovered computers. Replies are only candidates, not authenticated identities. Confirm the IP belongs to your PC before continuing. IPv6-only, non-Wi-Fi, blocked multicast, disabled Windows network discovery, sleeping PCs and guest-network isolation can prevent discovery. Direct IP entry is always available. No SMB1 or guest access is enabled.
+
+Enter the named Windows account and password, then press **이 PC의 공유 폴더 찾기**. The app authenticates to that PC using SMB2/3 with signing required and reads its SRVSVC share list. Choose a normal disk share, then **저장하고 연결** to validate actual folder reading and activate it. Listing a share does not prove read permission. Share enumeration alone does not save credentials or replace your current photo source. Wrong credentials are not retried automatically.
+
+If listing is blocked or unsupported, use **고급: 공유 이름 직접 입력 / 하위 경로 / 포트**. Hidden/administrative/IPC/printer shares are omitted from the normal picker. A known hidden disk share can still be typed explicitly if its account has access. The app implements only DCE/RPC v5 + NDR32 SRVSVC level-1 share enumeration, with bounded pages/fragments/strings; it is not a general RPC implementation. No extra RPC dependency was bundled.
+
+Tests include authenticated share enumeration against a loopback SMB2/SRVSVC fixture, RPC parsing/reassembly and malformed messages, discovery-response parsing/subnet checks, and Android 14 simulated setup flows. They do **not** prove WS-Discovery multicast, OEM Wi-Fi behavior or Windows 11 interoperability on a real LAN. Manual setup remains the fallback until target-device testing is done.
+
+Protocol references: [MS-SRVS NetrShareEnum](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-srvs/c4a98e7b-d416-439c-97bd-4d9f52f8ba52), [Windows Probe messages](https://learn.microsoft.com/en-us/windows/win32/wsdapi/probe-message), [modern Explorer discovery](https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/smbv1-not-installed-by-default-in-windows).
+
 ## Device folders (0.2.0)
 
 Choose **기기 폴더 선택** on the welcome screen or in Settings. In Android's picker, choose a photo folder and allow access. The app requests persistent read permission only. It does not request write access or change original files. Internal storage and SD-card folders work when the device's document provider exposes them. The picker is asked to show local locations; provider behavior still depends on the installed Android ROM.

@@ -45,6 +45,12 @@ AddressSanitizer/UndefinedBehaviorSanitizer can be enabled with CMAKE_C_FLAGS, C
 
 RAW fixture source URLs, camera modes and SHA-256 values are in tests/raw-sample-sources.json. Those selected entries were labeled CC0. No RAW fixture image binaries are bundled in the repository or APK. Fetch only the selected entries and verify hashes before use.
 
+## PC discovery and share enumeration
+
+`ShareRpcTest` checks level-1 NDR shares, hidden/non-disk filtering, bind/request shape, resume data, truncated/oversized/malformed buffers, DCE fragment order/call IDs/auth trailer rejection, fragmentation limits and 500 bounded synthetic/mutated NDR inputs. This is not a protocol-security audit.
+
+`SmbIntegrationTest.enumerateAuthenticatedShares` uses an actual authenticated loopback SMB2 server with a SRVSVC named pipe. `DiscoveryTest` also drives that real fixture through the simulated Android setup dialog, including bad-password handling. Discovery replies, request correlation/type filtering, subnet boundaries, external-entity rejection, read-only manual fallback, cancellation and UI renders are tested separately. This does not transmit discovery multicast on a physical LAN. Check Windows discovery settings/firewall, target Android Wi-Fi, actual PC results and account/share permissions before treating discovery as verified.
+
 ## Device-folder provider fixture
 
 `LocalSourceTest` supplies a synthetic ContentProvider and non-personal photo files under Android 14 Robolectric. It covers recursive Unicode paths, read-only file opens, size/version checks, byte limits with unknown size, partial/loading/error listings, duplicate names, additions/deletions, stale document IDs, explicit read-only tree picker intent, persistable grant result handling, local config persistence without overwriting PC fields, activity restart, playback, folder selection and access revocation. Unknown metadata receives a new cache version each scan.
