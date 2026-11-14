@@ -66,3 +66,11 @@ Android instrumentation test source is included under app/src/androidTest. Inclu
 ## Before normal use
 
 A physical device still needs installation/update, Keystore save/reload, actual Windows authentication, small-folder playback, add/delete rescan, connection interruption/recovery, actual camera files, rotation, background/resume and an extended thermal/memory test. Do not lower SMB security or expose port 445 to get a pass. Keep original-photo backups.
+
+## 0.3.1 stability and prefetch regressions
+
+The connected fixture now also covers a 12-second idle, explicitly closed connection recovery, 400 long Unicode subfolder names, and a 12MiB multi-read file. The idle test reads the live session directly: temporarily restoring `withSoTimeout(8000)` reproduces `DiskShare has already been closed`; `withSoTimeout(0)` passes. The 30-second SMB request timeout remains in place.
+
+`StabilityTest` covers bounded reconnects, non-retryable authentication/file errors, encrypted profile roundtrip/update/delete/limits/tamper, loading without network effects, portrait full-folder selection, custom intervals, decoded-frame ownership and recycling, current-photo preservation on prefetch failure, shuffled lookahead and actual next matching, multi-frame memory budgets, and backward decoded-frame reuse. Memory-budget UI tests use a deterministic budget override; the budget formula has separate low-headroom/low-memory tests. These do not measure actual tablet RAM, thermal load or swipe latency.
+
+A separate Android runtime component probe calls the production Config and SavedConnections classes with Android Keystore under the installed emulator app UID. It checks encrypted active-record save/load, profile save/update/delete, absence of synthetic plaintext in preferences, distinct GCM IVs and tamper rejection. It is not latest APK installation, Android 14 hardware or reboot testing. Never run probes against real user credentials or copy their values into diagnostics.

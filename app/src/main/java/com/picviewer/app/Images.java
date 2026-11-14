@@ -34,6 +34,7 @@ final class Images implements AutoCloseable {
   }
   if(bitmap==null)throw new IOException(raw?"RAW_PREVIEW_UNSUPPORTED":"FORMAT_UNSUPPORTED");
   if(!oriented&&!note.equals("RAW 간이 현상"))try{androidx.exifinterface.media.ExifInterface ex=new androidx.exifinterface.media.ExifInterface(f);int rotation=ex.getRotationDegrees();boolean flip=ex.isFlipped();if(rotation!=0||flip){Matrix m=new Matrix();if(flip)m.postScale(-1,1);m.postRotate(rotation);Bitmap rotated=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),m,true);if(rotated!=bitmap)bitmap.recycle();bitmap=rotated;}}catch(Exception ignored){}
+  double fit=Math.min(1.0,Math.min((double)width/bitmap.getWidth(),(double)height/bitmap.getHeight()));if(fit<1){Bitmap scaled=Bitmap.createScaledBitmap(bitmap,Math.max(1,(int)(bitmap.getWidth()*fit)),Math.max(1,(int)(bitmap.getHeight()*fit)),true);if(scaled!=bitmap)bitmap.recycle();bitmap=scaled;}
   return new Decoded(bitmap,note);
  }
  static int sample(int w,int h,int tw,int th){int n=1;while(w/n>Math.max(1,tw)*2||h/n>Math.max(1,th)*2)n*=2;return n;}

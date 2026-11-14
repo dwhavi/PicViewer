@@ -2,7 +2,7 @@
 
 A quiet Android photo frame for photos in a device folder or on an authenticated SMB2/3 share.
 
-**Pre-release.** The app is being tested. It has not been validated on a physical tablet or a real Windows share yet. Installation and the welcome screen have been checked on an Android 9 x86 software emulator. Do not weaken your server security settings to make it connect.
+**Pre-release.** The app is being tested. This build is not certified on a physical tablet or a real Windows share. Installation and the welcome screen have been checked on an Android 9 x86 software emulator. Do not weaken your server security settings to make it connect.
 
 ## What it does
 
@@ -13,7 +13,7 @@ A quiet Android photo frame for photos in a device folder or on an authenticated
 - Full-screen fit/optional crop, interval controls, pause, previous/next, and foreground screen-on.
 - Distinct connection, authentication, share-permission and cached-offline states.
 - Periodic rescans. Successfully confirmed deletions leave the queue and disk cache; failed listings do not erase the index.
-- Password encryption using an Android Keystore AES-GCM key. Backups are disabled. Photos and credentials are not uploaded to a cloud service.
+- Active connection and named saved-connection profiles encrypted using an Android Keystore AES-GCM key. Backups are disabled. Photos and credentials are not uploaded to a cloud service.
 - Basic image formats through Android decoders. RAW embedded previews/basic rendering through LibRaw and TIFF through LibTIFF are included as best-effort paths.
 
 This is not a universal decoder guarantee. Unsupported encodings, camera variants, damaged files and resource limits can prevent display. GIF and other animated containers are shown as still images. HDR/professional RAW colour matching is not promised. RAW processing is limited to one native operation at a time across decode workers and uses constrained buffers. A 256MB file limit and 50MP full-RAW limit protect low-memory devices; embedded previews may work for larger sensors.
@@ -28,6 +28,17 @@ Requirements: JDK 17, Android SDK 35 / build-tools 35.0.0, NDK 27.2.12479018, CM
 ```
 
 The debug APK is `app/build/outputs/apk/debug/app-debug.apk`. It is a development build, not a Play Store release. Never add a signing key or real connection details to the repository.
+
+## Stability and playback update (0.3.1)
+
+- Removed an 8-second socket idle timeout that could close the SMB session between slides. Individual SMB requests still have a 30-second timeout. A transport failure gets one read-only reconnect/retry; authentication, permission, changed-file and disk-space errors do not trigger login loops.
+- Successful folder listings survive a later transport interruption. The portrait folder area is larger, with a counted, scrollable **전체 목록** multi-select dialog. Reparse/symlink entries are still not followed; their skipped count is shown. Do not treat a junction or cloud-placeholder tree as an ordinary local folder.
+- **저장된 연결 불러오기 / 삭제** and **현재 입력을 연결 목록에 저장** keep up to 20 named profiles. The full profile, including credentials, is AES-GCM encrypted on the device. Loading fills the form without logging in. The previous single-connection format remains readable and is replaced by the encrypted-record format when saved again. Removing a profile leaves the separately saved active connection intact.
+- Tap a playing photo, then **간격 ...초 · 변경** to set 1-3600 seconds without leaving playback. The value persists locally.
+- During playback, prepare the next frames and retain a previous frame when memory allows. Up to four forward targets and one previous target are considered. The decoded-frame cache is limited to 6 entries and the smallest of 48MiB, one-eighth of the app heap, and conservative heap/native/system-headroom allowances. Each decoded frame is at most 1920x1200 / 10MiB. Background/low-memory notifications clear it. RAW prefetch uses previews only, not full RAW rendering. Fetch/decode operations are serialized and queued prefetch steps yield between images so manual navigation can run.
+- The previous photo stays on screen while a requested frame is prepared. There is no centered loading spinner. Prefetch failures stay quiet; actual display failures remain visible. No hard latency guarantee is possible on slow networks or unsupported images.
+
+Regression checks reproduce failure with the old 8-second socket timeout after a 12-second idle, and pass with the new setting. They also cover a disconnected session, a 12MiB read, 400 long Unicode folder names, adaptive cache limits, ownership/recycling, forward/backward frame reuse, and settings persistence. The saved-record/profile code was separately exercised with Android Keystore under an Android 9 emulator app UID. This is component evidence, not latest whole-app installation or target-hardware certification.
 
 ## PC discovery and share picker (0.3.0)
 
