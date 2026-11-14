@@ -29,7 +29,7 @@ Requirements: JDK 17, Android SDK 35 / build-tools 35.0.0, NDK 27.2.12479018, CM
 
 The debug APK is `app/build/outputs/apk/debug/app-debug.apk`. It is a development build, not a Play Store release. Never add a signing key or real connection details to the repository.
 
-## Stability and playback update (0.3.2)
+## Stability and playback update (0.4.0)
 
 - Removed an 8-second socket idle timeout that could close the SMB session between slides. Individual SMB requests still have a 30-second timeout. A transport failure gets one read-only reconnect/retry; authentication, permission, changed-file and disk-space errors do not trigger login loops.
 - Successful folder listings survive a later transport interruption. The portrait folder area is larger, with a counted, scrollable **전체 목록** multi-select dialog. Reparse/symlink entries are still not followed; their skipped count is shown. Do not treat a junction or cloud-placeholder tree as an ordinary local folder.
@@ -87,3 +87,13 @@ See `THIRD_PARTY_NOTICES.md` for component and photo licenses. Native dependency
 ### 0.3.2 입력 편의 수정
 - PC 연결/저장 연결 선택·삭제/PC·공유 선택/슬라이드 간격 창은 바깥을 눌러도 닫히지 않습니다. 취소·뒤로가기는 유지합니다.
 - IP를 끝에서 한 글자씩 입력하면 유효한 3자리 구간 뒤 점을 자동 입력합니다. 1~2자리 구간은 점을 직접 입력하세요. 붙여넣기·중간 수정·삭제는 자동 재작성하지 않습니다. PC 이름도 사용할 수 있습니다.
+
+### 0.4.0 감상 기능
+- 재생 중 `감상 설정` 또는 사진함 `설정 → 감상 설정`에서 선택합니다. 모두 기기 안 설정입니다.
+- 야간 모드: 기본 꺼짐, 켜면 22:00~07:00/앱 밝기10%/야간 일시정지. 시간·밝기와 충전 해제 시 화면 켜두기 해제를 설정할 수 있습니다. 실제 화면 끄기/아침 깨우기/충전 제한이 아니며 기기가 잠들면 직접 깨워야 합니다.
+- 짧은320ms 디졸브 선택, 기본 즉시 전환. 메모리 여유 없으면 즉시 전환합니다.
+- 두 번 탭2배/원래 배율, 핀치1~4배와 이동. 확대하면 자동 일시정지하며 계속 보기는 직접 누릅니다. 화면용 샘플 이미지 확대이며 원본 해상도 보장이 아닙니다.
+- 자르지 않기/채우기/흐린 배경과 가로·세로 고정. 흐린 배경은24×24 축소 영상으로 비용을 제한합니다.
+- 순차 촬영일 정렬: 읽은 EXIF 원촬영일 우선, 없는 사진은 뒤에서 파일명 순. 전체 정렬은 사진함에서 선택한 사진 촬영일 읽기를 실행하세요. SMB 파일을 읽는 시간이 들고 재생/백그라운드 전환 때 중지합니다. 원본 사진에 쓰지 않고 버전 키별 날짜만 로컬 SQLite에 기록합니다. 날짜에 시간대가 없으면 카메라 현지시각 기준입니다.
+- 시계/촬영일/파일명을 각각 선택, 모두 기본 꺼짐. 네 모서리와 불투명도20~100%. 파일명 노출과 고정 정보 장기 표시를 주의하세요.
+- 별도 오프라인 보관 앨범은 추가하지 않았습니다. 기존 임시 캐시와 예시/기기 폴더 기능은 유지합니다.
