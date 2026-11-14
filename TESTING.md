@@ -74,3 +74,10 @@ The connected fixture now also covers a 12-second idle, explicitly closed connec
 `StabilityTest` covers bounded reconnects, non-retryable authentication/file errors, encrypted profile roundtrip/update/delete/limits/tamper, loading without network effects, portrait full-folder selection, custom intervals, decoded-frame ownership and recycling, current-photo preservation on prefetch failure, shuffled lookahead and actual next matching, multi-frame memory budgets, and backward decoded-frame reuse. Memory-budget UI tests use a deterministic budget override; the budget formula has separate low-headroom/low-memory tests. These do not measure actual tablet RAM, thermal load or swipe latency.
 
 A separate Android runtime component probe calls the production Config and SavedConnections classes with Android Keystore under the installed emulator app UID. It checks encrypted active-record save/load, profile save/update/delete, absence of synthetic plaintext in preferences, distinct GCM IVs and tamper rejection. It is not latest APK installation, Android 14 hardware or reboot testing. Never run probes against real user credentials or copy their values into diagnostics.
+
+## 0.3.2 입력·팝업 회귀 시험 (2026-11-14)
+- 전체 168개 통과, 실패/건너뜀 0. 기존 151개 + InputDialogTest 17개.
+- 외부 터치로 연결/공유 선택/PC 선택/간격 창이 닫히지 않음, 명시적 취소 가능.
+- 회전 구성 변경·포커스 이동·일시중지/복귀 중 연결창 입력 유지 확인. OS 프로세스 종료 후 미저장 암호 복구는 하지 않음.
+- 3자리 IP 자동 점, 수동 점 중복 방지, 짧은 구간 수동 점, 4구간 제한, 숫자로 시작하는 호스트 이름 복원, 일반 호스트 이름, 삭제/중간 수정/붙여넣기 원문 유지 확인.
+- 실제 태블릿 키보드/외부 터치의 0.3.2 재시험은 아직 필요. 화면 캡처는 합성 데이터의 모의 렌더.

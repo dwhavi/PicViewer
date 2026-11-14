@@ -29,7 +29,7 @@ Requirements: JDK 17, Android SDK 35 / build-tools 35.0.0, NDK 27.2.12479018, CM
 
 The debug APK is `app/build/outputs/apk/debug/app-debug.apk`. It is a development build, not a Play Store release. Never add a signing key or real connection details to the repository.
 
-## Stability and playback update (0.3.1)
+## Stability and playback update (0.3.2)
 
 - Removed an 8-second socket idle timeout that could close the SMB session between slides. Individual SMB requests still have a 30-second timeout. A transport failure gets one read-only reconnect/retry; authentication, permission, changed-file and disk-space errors do not trigger login loops.
 - Successful folder listings survive a later transport interruption. The portrait folder area is larger, with a counted, scrollable **전체 목록** multi-select dialog. Reparse/symlink entries are still not followed; their skipped count is shown. Do not treat a junction or cloud-placeholder tree as an ordinary local folder.
@@ -83,3 +83,7 @@ The demo button works without a server and is clearly labeled. It contains a lic
 See `THIRD_PARTY_NOTICES.md` for component and photo licenses. Native dependency versions and the two documented LibRaw decoder patches are listed there. Test data and build output are not a claim of compatibility with every RAW camera.
 
 `tests/android_probe/NativeCodec.java` is a small Android-runtime JNI probe, not an app feature. It was run with the APK's x86 library against a generated LZW TIFF, a CC0 Nikon D7000 NEF preview, a small Canon-derived DNG render and a broken TIFF. It is not a substitute for arm64/physical-device tests. Android instrumentation test source is also included but is not counted as executed unless its runner completed.
+
+### 0.3.2 입력 편의 수정
+- PC 연결/저장 연결 선택·삭제/PC·공유 선택/슬라이드 간격 창은 바깥을 눌러도 닫히지 않습니다. 취소·뒤로가기는 유지합니다.
+- IP를 끝에서 한 글자씩 입력하면 유효한 3자리 구간 뒤 점을 자동 입력합니다. 1~2자리 구간은 점을 직접 입력하세요. 붙여넣기·중간 수정·삭제는 자동 재작성하지 않습니다. PC 이름도 사용할 수 있습니다.
